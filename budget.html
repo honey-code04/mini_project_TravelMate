@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate - Real Trip Expense Tracker</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon-wrap">✈️</div>
+        <div class="logo-text">Travel<span>Mate</span></div>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+        ☰
+      </button>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+          <li><a href="budget.html" class="nav-link active">Trip Expenses</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <section class="expense-tracker-section">
+      <div class="container">
+        
+        <!-- Section Header -->
+        <div class="section-header">
+          <span class="section-tag">Expense Tracker & Splitter</span>
+          <h1 class="section-title">Trip Expense Tracker</h1>
+          <p class="section-subtitle">
+            Record actual expenses incurred by trip members, calculate fair shares automatically, track who owes whom, and print clean reports.
+          </p>
+        </div>
+
+        <div class="tracker-layout">
+
+          <!-- ========================================================= -->
+          <!-- 0. MY TRIPS DASHBOARD                                     -->
+          <!-- ========================================================= -->
+          <div id="myTripsSection" class="my-trips-section">
+            <div class="my-trips-header">
+              <div>
+                <span class="panel-tag">TRIP MANAGEMENT</span>
+                <h2 class="panel-title">My Trips</h2>
+                <p class="panel-desc">Switch between multiple trips or create a new one.</p>
+              </div>
+              <button id="btnCreateNewTrip" class="btn btn-primary btn-md">
+                + Create New Trip
+              </button>
+            </div>
+            <div id="myTripsGrid" class="my-trips-grid">
+              <!-- Dynamically populated trip cards -->
+            </div>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 1. ACTIVE TRIP BANNER (Visible when a trip is active)     -->
+          <!-- ========================================================= -->
+          <div id="activeTripBanner" class="active-trip-banner hidden">
+            <div class="active-trip-info">
+              <div class="active-trip-label">Currently Viewing</div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <h2 id="activeTripTitle" class="active-trip-title" style="margin: 0;">Goa Trip</h2>
+                <span id="activeTripDestBadge" class="destination-badge-inline hidden"></span>
+              </div>
+              <div id="activeMembersList" class="active-members-list">
+                <!-- Member chips injected dynamically -->
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <button id="backToTripsBtn" class="btn btn-outline btn-sm">← My Trips</button>
+              <button id="editTripBtn" class="btn btn-outline btn-sm">Edit Members</button>
+              <button id="deleteActiveTripBtn" class="btn btn-outline-danger btn-sm">Delete Trip</button>
+            </div>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 2. TRIP SETUP PANEL (Shown initially or on edit)          -->
+          <!-- ========================================================= -->
+          <div id="tripSetupPanel" class="tracker-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-tag" id="tripSetupTag">STEP 1: TRIP SETUP</span>
+                <h2 class="panel-title" id="tripSetupTitle">Create Your Trip</h2>
+                <p class="panel-desc" id="tripSetupDesc">Set your trip name and add your group members to start tracking expenses.</p>
+              </div>
+            </div>
+
+            <form id="tripSetupForm">
+              <div class="form-grid">
+                <!-- Trip Name -->
+                <div class="form-group">
+                  <label for="tripNameInput" class="form-label">
+                    <span>Trip Name</span> <span class="req">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="tripNameInput" 
+                    class="form-input" 
+                    placeholder="e.g. Goa Trip, Manali Holiday" 
+                    required
+                  >
+                  <span class="form-hint">Name of your tour or holiday</span>
+                </div>
+
+                <!-- Destination (Optional) -->
+                <div class="form-group">
+                  <label for="tripDestInput" class="form-label">
+                    <span>Destination</span> <span style="font-weight: 500; color: var(--text-muted); font-size: 0.8rem;">(Optional)</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="tripDestInput" 
+                    class="form-input" 
+                    placeholder="e.g. Goa, Manali, Jaipur" 
+                  >
+                  <span class="form-hint">Location of your trip</span>
+                </div>
+
+                <!-- Number of Members -->
+                <div class="form-group">
+                  <label for="numMembersInput" class="form-label">
+                    <span>Number of Members</span> <span class="req">*</span>
+                  </label>
+                  <input 
+                    type="number" 
+                    id="numMembersInput" 
+                    class="form-input" 
+                    min="1" 
+                    max="20" 
+                    value="3" 
+                    required
+                  >
+                  <span class="form-hint">How many people are sharing expenses?</span>
+                </div>
+              </div>
+
+              <!-- Dynamic Member Name Fields Container -->
+              <div style="margin-top: 1rem;">
+                <label class="form-label" style="margin-bottom: 0.5rem;">
+                  <span>Trip Member Names</span> <span class="req">*</span>
+                </label>
+                <div id="memberNamesContainer" class="member-inputs-grid">
+                  <!-- Injected dynamically based on numMembersInput -->
+                </div>
+              </div>
+
+              <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <button type="submit" id="startTripBtn" class="btn btn-primary btn-lg">
+                  Save Trip &rarr;
+                </button>
+                <button type="button" id="cancelTripSetupBtn" class="btn btn-outline btn-lg hidden">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 3. ADD / EDIT EXPENSE FORM (Visible once trip is active)   -->
+          <!-- ========================================================= -->
+          <div id="expenseFormPanel" class="tracker-panel hidden">
+            <div class="panel-header">
+              <div>
+                <span class="panel-tag">STEP 2: ADD EXPENSES</span>
+                <h2 class="panel-title">Add Trip Expense</h2>
+                <p class="panel-desc">Enter expenses paid by any member during the journey.</p>
+              </div>
+            </div>
+
+            <!-- Validation Error Alert -->
+            <div id="expenseError" class="alert alert-error hidden" role="alert"></div>
+
+            <form id="expenseForm" novalidate>
+              <div class="form-grid">
+                
+                <!-- Who Paid? Dropdown -->
+                <div class="form-group">
+                  <label for="expensePayer" class="form-label">
+                    <span>Who Paid?</span> <span class="req">*</span>
+                  </label>
+                  <select id="expensePayer" class="form-select" required>
+                    <option value="" disabled selected>Select who paid</option>
+                    <!-- Injected dynamically from active trip members -->
+                  </select>
+                  <span class="form-hint">Person who paid the amount</span>
+                </div>
+
+                <!-- Expense Description -->
+                <div class="form-group">
+                  <label for="expenseName" class="form-label">
+                    <span>Expense Name</span> <span class="req">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="expenseName" 
+                    class="form-input" 
+                    placeholder="e.g. Hotel Stay, Dinner, Fuel, Entry Passes" 
+                    required
+                  >
+                  <span class="form-hint">Short description of what was bought</span>
+                </div>
+
+                <!-- Category Dropdown -->
+                <div class="form-group">
+                  <label for="expenseCategory" class="form-label">
+                    <span>Category</span> <span class="req">*</span>
+                  </label>
+                  <select id="expenseCategory" class="form-select" required>
+                    <option value="Food">Food</option>
+                    <option value="Hotel / Stay">Hotel / Stay</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Activities">Activities</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <span class="form-hint">Type of expenditure</span>
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group">
+                  <label for="expenseAmount" class="form-label">
+                    <span>Amount (₹)</span> <span class="req">*</span>
+                  </label>
+                  <div class="input-icon-wrap">
+                    <span class="input-icon">₹</span>
+                    <input 
+                      type="number" 
+                      id="expenseAmount" 
+                      class="form-input has-icon" 
+                      min="1" 
+                      step="any" 
+                      placeholder="e.g. 1500" 
+                      required
+                    >
+                  </div>
+                  <span class="form-hint">Actual amount paid in INR</span>
+                </div>
+
+                <!-- Date -->
+                <div class="form-group">
+                  <label for="expenseDate" class="form-label">
+                    <span>Date</span> <span class="req">*</span>
+                  </label>
+                  <input 
+                    type="date" 
+                    id="expenseDate" 
+                    class="form-input" 
+                    required
+                  >
+                  <span class="form-hint">Date of transaction</span>
+                </div>
+
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <button type="submit" id="addExpenseBtn" class="btn btn-primary btn-lg">
+                  + Add Expense
+                </button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline btn-lg hidden">
+                  Cancel Edit
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 4. EXPENSE HISTORY TABLE                                  -->
+          <!-- ========================================================= -->
+          <div id="expenseHistoryPanel" class="tracker-panel hidden">
+            <div class="panel-header">
+              <div>
+                <span class="panel-tag">STEP 3: EXPENSE HISTORY</span>
+                <h2 class="panel-title">Recorded Expenses</h2>
+                <p class="panel-desc">All expenses logged for this trip with edit and delete options.</p>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="expense-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Person</th>
+                    <th>Expense</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="expenseTableBody">
+                  <!-- Dynamically rendered expense rows -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyExpenseState" class="empty-state hidden">
+              <div class="empty-state-icon">🧾</div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Expenses Recorded Yet</h3>
+              <p style="font-size: 0.95rem;">Use the form above to add your first expense.</p>
+            </div>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 5. FINANCIAL SUMMARY & SETTLEMENT ENGINE                 -->
+          <!-- ========================================================= -->
+          <div id="summaryPanel" class="tracker-panel hidden">
+            <div class="panel-header">
+              <div>
+                <span class="panel-tag" style="color: var(--secondary);">STEP 4: FINANCIAL SUMMARY & SETTLEMENT</span>
+                <h2 class="panel-title">Trip Totals & Who Owes Whom</h2>
+                <p class="panel-desc">Automatic fair-share distribution and balance settlements.</p>
+              </div>
+            </div>
+
+            <!-- Key Metric Highlights -->
+            <div class="metrics-grid">
+              <div class="metric-card primary">
+                <div class="metric-label">Total Trip Expense</div>
+                <div class="metric-value" id="totalTripExpense">₹0</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Active Members</div>
+                <div class="metric-value" id="totalMembersCount">0</div>
+              </div>
+              <div class="metric-card accent">
+                <div class="metric-label">Average Per Person (Fair Share)</div>
+                <div class="metric-value" id="averageExpensePerPerson">₹0</div>
+              </div>
+            </div>
+
+            <!-- Member Payment Summary Table -->
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.85rem;">
+              Member Payment Breakdown
+            </h3>
+            <div class="table-responsive" style="margin-bottom: 2rem;">
+              <table class="expense-table">
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th style="text-align: right;">Total Paid</th>
+                    <th style="text-align: right;">Fair Share</th>
+                    <th style="text-align: right;">Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="memberSummaryBody">
+                  <!-- Dynamically rendered member rows -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Direct Pair-wise Settlements (Who Pays Whom) -->
+            <div style="margin-top: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;">
+                💸 Direct Settlement Plan (Who Pays Whom)
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Direct debtor-to-creditor transfers to settle all group debts with minimum transactions.
+              </p>
+              <div id="pairSettlementList" class="pair-settlement-list">
+                <!-- Injected dynamically, e.g. "Rahul pays Honey ₹1,000" -->
+              </div>
+            </div>
+
+            <!-- Settlement Cards (Individual Member Balances) -->
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">
+              Individual Member Balances
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Net balance for each member: whether they should pay or receive.
+            </p>
+            <div id="settlementList" class="settlement-grid">
+              <!-- Injected dynamically -->
+            </div>
+          </div>
+
+          <!-- ========================================================= -->
+          <!-- 6. PRINT & PDF REPORT ACTION BAR                          -->
+          <!-- ========================================================= -->
+          <div class="print-actions-bar hidden">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+                Print or Export Trip Report
+              </h3>
+              <p class="print-tip">
+                Tip: Choose <strong>"Save as PDF"</strong> in the browser print dialog to save your complete report.
+              </p>
+            </div>
+            <button id="printReportBtn" class="btn btn-secondary btn-lg">
+              🖨️ Print Trip Report
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- DEDICATED PRINTABLE REPORT CONTAINER (Visible only in print)  -->
+    <!-- ============================================================= -->
+    <div id="printableReport" class="print-report-container">
+      <!-- Injected dynamically for printing -->
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <div class="footer-logo">
+          <span>✈️</span> TravelMate
+        </div>
+        <p>A simple, beginner-friendly travel planner and trip expense tracker.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="budget.html">Trip Expenses</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div>
+        <p>&copy; 2026 TravelMate. Built for students & travelers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate - Popular Destinations</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon-wrap">✈️</div>
+        <div class="logo-text">Travel<span>Mate</span></div>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+        ☰
+      </button>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="destinations.html" class="nav-link active">Destinations</a></li>
+          <li><a href="budget.html" class="nav-link">Trip Expenses</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="destinations-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+          <span class="section-tag">Featured Spots</span>
+          <h1 class="section-title">Explore Top Destinations</h1>
+          <p class="section-subtitle">
+            Browse our curated destinations across India, review estimated daily budgets, and click "Plan Trip" to launch your group expense tracker.
+          </p>
+        </div>
+
+        <!-- Destinations Grid -->
+        <div class="destinations-grid">
+          
+          <!-- Destination 1: Goa -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80" 
+                alt="Sun-kissed beach and palm trees in Goa" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">Coastal Paradise</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Goa</h2>
+              <p class="destination-desc">
+                Famous for scenic golden beaches, thrilling water sports, Portuguese architecture, and vibrant coastal dining.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹2,500 / day</div>
+                </div>
+                <a href="budget.html?destination=Goa" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Destination 2: Manali -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&auto=format&fit=crop&q=80" 
+                alt="Snow-covered mountain peaks in Manali" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">Hill Station</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Manali</h2>
+              <p class="destination-desc">
+                Breathtaking Himalayan views, pine forests, adventure trekking, and snow-filled mountain passes in Himachal Pradesh.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹2,200 / day</div>
+                </div>
+                <a href="budget.html?destination=Manali" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Destination 3: Jaipur -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80" 
+                alt="Hawa Mahal Palace in Jaipur" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">Heritage & Culture</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Jaipur</h2>
+              <p class="destination-desc">
+                The historic Pink City, home to iconic forts, royal palaces, bustling handicraft bazaars, and legendary Rajasthani food.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹1,800 / day</div>
+                </div>
+                <a href="budget.html?destination=Jaipur" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Destination 4: Mumbai -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&auto=format&fit=crop&q=80" 
+                alt="Gateway of India in Mumbai" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">City of Dreams</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Mumbai</h2>
+              <p class="destination-desc">
+                The bustling financial capital with Marine Drive sunsets, Bollywood spirit, street food culture, and historic colonial landmarks.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹3,000 / day</div>
+                </div>
+                <a href="budget.html?destination=Mumbai" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Destination 5: Delhi -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80" 
+                alt="India Gate in New Delhi" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">National Capital</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Delhi</h2>
+              <p class="destination-desc">
+                A rich fusion of centuries-old history and modern energy, boasting iconic monuments, expansive markets, and culinary treasures.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹2,000 / day</div>
+                </div>
+                <a href="budget.html?destination=Delhi" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Destination 6: Udaipur -->
+          <article class="destination-card">
+            <div class="destination-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?w=800&auto=format&fit=crop&q=80" 
+                alt="City Palace on Lake Pichola in Udaipur" 
+                class="destination-image"
+                loading="lazy"
+              >
+              <span class="destination-badge">City of Lakes</span>
+            </div>
+            <div class="destination-content">
+              <h2 class="destination-name">Udaipur</h2>
+              <p class="destination-desc">
+                Romance and royalty amid calm waters, majestic lakeside heritage palaces, peaceful boat rides, and Mewar architecture.
+              </p>
+              <div class="destination-footer">
+                <div>
+                  <div class="destination-budget-label">Est. Daily Budget</div>
+                  <div class="destination-budget-val">₹2,400 / day</div>
+                </div>
+                <a href="budget.html?destination=Udaipur" class="btn btn-primary">Plan Trip &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <div class="footer-logo">
+          <span>✈️</span> TravelMate
+        </div>
+        <p>A simple, beginner-friendly travel planner and trip expense tracker.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="budget.html">Trip Expenses</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div>
+        <p>&copy; 2026 TravelMate. Built for students & travelers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="js/script.js"></script>
+</body>
+</html>
